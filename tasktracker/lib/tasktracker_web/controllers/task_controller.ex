@@ -18,9 +18,11 @@ defmodule TasktrackerWeb.TaskController do
 #   tasks = Repo.all(my_tasks(user1))
     complete_tasks = my_tasks(user1) |> complete |> Repo.all
    incomplete_tasks = my_tasks(user1) |> incomplete |> Repo.all
- 
-    render(conn, "index.html", complete_tasks: complete_tasks, incomplete_tasks: incomplete_tasks)
-  
+   if user1.name == "root" do
+    render(conn, "root_index.html", complete_tasks: complete_tasks, incomplete_tasks: incomplete_tasks)
+  else
+ render(conn, "index.html", complete_tasks: complete_tasks, incomplete_tasks: incomplete_tasks)
+end
   end
 
   def new(conn, _params) do

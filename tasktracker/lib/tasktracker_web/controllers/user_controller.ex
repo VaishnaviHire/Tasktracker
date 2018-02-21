@@ -10,8 +10,7 @@ defmodule TasktrackerWeb.UserController do
   alias Tasktracker.Accounts
   alias Tasktracker.Accounts.User
   alias TasktrackerWeb.TaskController
-
- 
+  
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, "index.html", users: users)
@@ -27,7 +26,7 @@ defmodule TasktrackerWeb.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: user_path(conn, :show, user))
+        |> redirect(to: user_path(conn, :index, user))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -59,12 +58,21 @@ defmodule TasktrackerWeb.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    num_of_tasks = Repo.all(TasktrackerWeb.TaskController.my_tasks(user)) |> Enum.count
-    IO.inspect(TasktrackerWeb.TaskController.my_tasks(user))
-    {:ok, _user} =    Accounts.delete_user(user)
-    conn
-    |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: user_path(conn, :index))
-  
+    num_of_tasks = Repo.all(TasktrackerWeb.TaskController.my_tasks(user)) 
+                   |> Enum.count
+    IO.inspect(num_of_tasks)
+
+    {:ok, _user} =  if num_of_tasks > 0 do
+                         conn
+                        |> put_flash(:error, "Invalid Action! Assign the Incomplete tasks or mark them complete") 
+                        |> redirect(to: user_path(conn, :index))
+
+                    else
+                        Accounts.delete_user(user)
+                        conn
+                        |> put_flash(:info, "User deleted successfully.")
+                        |> redirect(to: user_path(conn, :index))
+                  end
+  end
 end
-end
+

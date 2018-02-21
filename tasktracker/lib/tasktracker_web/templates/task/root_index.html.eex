@@ -7,9 +7,10 @@
       <th>Task title</th>
       <th>Complete</th>
       <th>Time spent <br> (in mins)</th>
-      <th> Mark complete <th>      
-
-      <th></th>
+     
+      <th> Assigned To<br> (user_id)</th>
+      <th>Mark Complete</th>
+     <th> </th>
     </tr>
   </thead>
   <tbody>
@@ -17,10 +18,11 @@
     <tr>
       <td><%= task.task_title %></td>
       <td><%= task.status %></td>
-      <td><%= task.time_spent %></td>
-           <td><%= link "Mark", to: task_path(@conn, :status_task, task), class: "btn btn-outline-success" %></td>
+      <td>   <%= task.time_spent %></td>
+       <td> <%= task.user_id %> </td>
 
-</td>
+           <td><%= link "Mark", to: task_path(@conn, :status_task, task), class: "btn btn-outline-success" %></td>
+</td>       
 
       <td class="text-right">
 	 <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
@@ -46,6 +48,7 @@
       <th>Time spent<br> (in mins)</th>
 
 
+      <th>Assigned to <br> (user_id)</th>
       <th></th>
     </tr>
   </thead>
@@ -55,9 +58,9 @@
       <td><%= task.task_title %></td>
       <td><%= task.status %></td>
       <td><%= task.time_spent %></td>
+       <td> <%= task.user_id %> </td>
 
 </td>
-
 <td class="text-right">
        
          <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>

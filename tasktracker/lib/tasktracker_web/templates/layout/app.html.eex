@@ -25,9 +25,12 @@
           <%= if @current_user do %>
             <p>
               Logged in as: <%= @current_user.name %> |
-              <%= link "Log Out", to: "/session", method: :delete %>
+              <%= link "Log Out", to: "/session", method: :delete %> |
            
-              <%= link "my account", to: "/users/#{@current_user.id}" %>
+              <%= link "my account", to: "/users/#{@current_user.id}" %> |
+             <%= if @current_user.name == "root" do %>
+             <%= link "All users", to: "/users" %> 
+               <%= end %>
 	 </p>
           <% else %>
             <p>Not logged in.</p>
