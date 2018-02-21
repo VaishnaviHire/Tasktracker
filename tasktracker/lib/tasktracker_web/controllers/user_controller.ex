@@ -1,9 +1,17 @@
 defmodule TasktrackerWeb.UserController do
   use TasktrackerWeb, :controller
 
+  import Ecto.Query
+  alias Tasktracker.Social
+  alias Tasktracker.Social.Task
+  alias Tasktracker.Repo
+  alias TasktrackerWeb.Router
+  alias TasktrackerWeb.SessionController
   alias Tasktracker.Accounts
   alias Tasktracker.Accounts.User
+  alias TasktrackerWeb.TaskController
 
+ 
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, "index.html", users: users)
@@ -51,10 +59,12 @@ defmodule TasktrackerWeb.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    {:ok, _user} = Accounts.delete_user(user)
-
+    num_of_tasks = Repo.all(TasktrackerWeb.TaskController.my_tasks(user)) |> Enum.count
+    IO.inspect(TasktrackerWeb.TaskController.my_tasks(user))
+    {:ok, _user} =    Accounts.delete_user(user)
     conn
     |> put_flash(:info, "User deleted successfully.")
     |> redirect(to: user_path(conn, :index))
-  end
+  
+end
 end

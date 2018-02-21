@@ -5,7 +5,7 @@ defmodule TasktrackerWeb.SessionController do
   alias Tasktracker.Accounts.User
   alias TasktrackerWeb.UserController
   def create(conn, %{"login" => details}) do
-    user = Accounts.get_user_by_email(details)
+    user = Accounts.get_user_by_details(details)
     if user do
       conn
       |> put_session(:user_id, user.id)

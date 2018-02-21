@@ -15,7 +15,7 @@ defmodule TasktrackerWeb.TaskController do
  
 
     user1 = conn.assigns[:current_user]
-#    tasks = Repo.all(my_tasks(user1))
+#   tasks = Repo.all(my_tasks(user1))
     complete_tasks = my_tasks(user1) |> complete |> Repo.all
    incomplete_tasks = my_tasks(user1) |> incomplete |> Repo.all
  
@@ -82,8 +82,13 @@ defmodule TasktrackerWeb.TaskController do
     |> redirect(to: task_path(conn, :index))
   end
 
- defp my_tasks(user) do
+ def my_tasks(user) do
+  if user.name == "root" do
+    from t in Tasktracker.Social.Task
+
+  else   
    Ecto.assoc(user, :tasks)
+   end
 end
 
  def status_task(conn, %{"id" => id}) do

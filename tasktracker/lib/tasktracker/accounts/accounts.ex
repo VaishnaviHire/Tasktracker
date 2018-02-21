@@ -102,13 +102,9 @@ defmodule Tasktracker.Accounts do
     User.changeset(user, %{})
   end
 
-  def get_user_by_email(email) do
-    user = Repo.get_by(User, email: email)
-    if user do
-      user
-    else
-      user = Repo.get_by(User, name: email)
-      user
-    end
+  def get_user_by_details(details) do
+    user = Repo.get_by(User, email: details) || Repo.get_by(User, name: details)
+    user
+    
   end
 end
