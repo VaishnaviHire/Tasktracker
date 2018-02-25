@@ -1,20 +1,16 @@
 # Tasktracker
 
-To start your Phoenix server:
+A user can be admin or not a admin and can login with name or email
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+Roles of admin:
+An admin user has username = "root"
+An admin can view all tasks and users
+An admin can delete a user only if there are no tasks assigned to user
+an admin can assign a task
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Roles of other users:
+A user can assign task to himself or others
+A user can input time spent in 15 mins interval
+A user can mark a task as complete
+A user cannot edit completed task
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
