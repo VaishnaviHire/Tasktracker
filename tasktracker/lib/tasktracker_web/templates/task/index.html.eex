@@ -42,10 +42,8 @@
   <thead>
     <tr>
       <th>Task title</th>
-      <th>Status</th>
-      <th>Time spent<br> (in mins)</th>
-
-
+      <th>Complete</th>
+      <th>Time spent <br> (in mins)</th>
       <th></th>
     </tr>
   </thead>
